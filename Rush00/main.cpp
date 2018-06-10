@@ -17,10 +17,8 @@ WINDOW	*create_newwin(int height, int width, int startY, int startX)
 	WINDOW *local_win;
 
 	local_win = newwin(height, width, startY, startX);
-	
-	//Draw the spaceship with no spaces
-	std::cout << "\e[?25h";
-	std::cout << "<^>" << std::endl;
+
+	box(local_win, 0, 0);
 
 	//Refresh to show that box
 	wrefresh(local_win);
@@ -44,6 +42,8 @@ int main(void)
 	//initialising screen
 	initscr();
 	cbreak();
+	curs_set(FALSE);
+	nodelay(stdscr, TRUE);
 
 	keypad(stdscr, TRUE);
 	
@@ -64,41 +64,55 @@ int main(void)
 	//Creating a center point.
 	int centerY = (LINES - width) / 2;
 	int centerX = (COLS - height) / 2;
-
 	
+	Characters enemy(0, centerX);
 	Characters player(0, centerX);
-
-	printw("Press ESC to exit...");
+	
 	refresh();
-	my_win = create_newwin(height, width, centerY, player.getPositionX());
-	while((ch = getch()) != 27)
+	my_win = create_newwin(maxY, maxX, 0, 0);
+	int timer = 0;
+	while(1)
 	{
+		if (timer == 60000)
+		{
+			int a = enemy.getPositionY();
+			int b = enemy.getPositionX();
+			mvaddch(a, b, ' ');
+			enemy.setPosition(++a, b);
+			mvaddch(a, b, 'x');
+			timer = 0;
+		}
+		timer++;
+		ch = getch();
 		switch(ch)
 		{
 			case KEY_LEFT:
-					destroy_win(my_win);
-					my_win = create_newwin(height, width, centerY, --centerX);
+					mvaddch(centerY, centerX, ' ');
+					mvaddch(centerY, --centerX, 'o');
 					break;
 			case KEY_RIGHT:	
-					destroy_win(my_win);
-					my_win = create_newwin(height, width, centerY, ++centerX);
+					mvaddch(centerY, centerX, ' ');
+					mvaddch(centerY, ++centerX, 'o');
 					break;
 			case KEY_UP:	
-					destroy_win(my_win);
-					my_win = create_newwin(height, width, --centerY, centerX);
+					mvaddch(centerY, centerX, ' ');
+					mvaddch(--centerY, centerX, 'o');
 					break;
 			case KEY_DOWN:
-					destroy_win(my_win);
-					my_win = create_newwin(height, width, ++centerY, centerX);
+					mvaddch(centerY, centerX, ' ');
+					mvaddch(++centerY, centerX, 'o');
 					break;
 			//Space Bar
 			case 32:
 					destroy_win(my_win);
 					my_win = create_newwin(height, width, ++centerY, centerX);
 					break;
+			case 27:
+					endwin();
+					return 0;
+					break;
 		}
 	}
-	printw("Exiting...");
 	endwin();
 
 	return(0);
