@@ -11,3 +11,16 @@
 /* ************************************************************************** */
 
 
+#ifndef PLAYERCHARACTER_HPP
+	#define PLAYERCHARACTER_HPP
+
+#include "ft_retro.hpp"
+
+class Player{
+
+	private:
+	public : 
+	
+};
+
+#endif

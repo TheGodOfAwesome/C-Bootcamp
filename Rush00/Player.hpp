@@ -10,4 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PLAYER_HPP
+	#define PLAYER_HPP
 
+#include "ft_retro.hpp"
+
+class Player{
+
+	private:
+		int			_maxY;
+		int			_maxX;
+
+	public : 
+	
+};
+
+#endif

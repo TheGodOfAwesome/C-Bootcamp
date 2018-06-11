@@ -10,18 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = phonebook
+NAME = ft_retro
 
-COMPILE = g++ 
+COMPILE = clang++ 
 
 FLAGS = -Wall -Wextra -Werror
 
-FILES = phonebook.cpp
+EXTRAFLAGS = -lncurses
+
+FILES = Characters.cpp NonPlayerCharacter.cpp Bullet.cpp Arena.cpp main.cpp 
 
 all : $(NAME)
 
 $(NAME) :
-		$(COMPILE) $(FILES) $(FLAGS) -o $(NAME)
+		$(COMPILE) $(FLAGS) $(FILES) $(EXTRAFLAGS) -o $(NAME)
 
 clean:
 		rm -f $(NAME)

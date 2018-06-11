@@ -4,12 +4,13 @@
 #include <iostream>
 #include <ncurses.h>
 #include <ctime>
+#include <unistd.h>
 
-#include <Arena.hpp>
-#include <Characters.hpp>
-#include <PlayerCharacter.hpp>
-#include <NonPlayerCharacter.hpp>
-#include <Bullet.hpp>
+#include "Characters.hpp"
+#include "NonPlayerCharacter.hpp"
+#include "Arena.hpp"
+#include "Bullet.hpp"
+#include "PlayerCharacter.hpp"
 
 class Arena;
 class Characters;
